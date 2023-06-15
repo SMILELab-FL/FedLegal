@@ -21,4 +21,4 @@ fi
 echo "config file in ${config_file}"
 
 
-bash fed_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0,0,1
+bash fed_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0 0 1

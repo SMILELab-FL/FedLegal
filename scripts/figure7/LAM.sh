@@ -30,10 +30,10 @@ bash cen_run.sh ${RUN_DIR} ${task} local ${config_file} 18000 0
 
 echo "Layer 3 for fedavg"
 config_file="config_files/${task,,}/layers_f1_micro/fed_silo_lr_5e-5_layers_6.yaml"
-bash cen_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0,0,1
+bash cen_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0 0 1
 
 echo "Layer 6 for fedavg"
 config_file="config_files/${task,,}/layers_f1_micro/fed_silo_lr_5e-5_layers_6.yaml"
-bash cen_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0,0,1
+bash cen_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0 0 1
 
 # The results of layer 12 are the same with results in Table2
