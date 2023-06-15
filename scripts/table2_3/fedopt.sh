@@ -28,16 +28,16 @@ fi
 echo "config file in ${config_file}"
 
 
-bash fed_run.sh ${RUN_DIR} ${task} fedopt ${config_file} 18000 0,0,1
+bash fed_run.sh ${RUN_DIR} ${task} fedopt ${config_file} 18000 0 0 1
 
 
 # SEARCH PARAMETERS
-# python fed_sweep_once.py LCP fedopt config_files/lcp/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LCP fedopt config_files/lcp/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LJP fedopt config_files/ljp/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LJP fedopt config_files/ljp/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LER fedopt config_files/ler/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LER fedopt config_files/ler/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LRE fedopt config_files/lre/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LRE fedopt config_files/lre/fed_silo_msgd.yaml fedopt_msgd_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LCP fedopt config_files/lcp/fed_silo_msgd.yaml LAM_fedopt_msgd_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LCP fedopt config_files/lcp/fed_silo_msgd.yaml LAM_fedopt_msgd_fine-tuning 18000 0 0 1
