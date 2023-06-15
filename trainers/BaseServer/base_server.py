@@ -285,9 +285,9 @@ class BaseServerManager(ServerManager):
         self.logger.info("TrainClient activation procedure")
         clients_this_round = self._handler.sample_clients()
         # old version  send rank and client_id
-        # rank_dict = self.coordinator.map_id_list(clients_this_round)
+        rank_dict = self.coordinator.map_id_list(clients_this_round)
         # new version  balance rank and client id
-        rank_dict = self.coordinator.balance_id_list(clients_this_round, self._network.world_size - 1)
+        # rank_dict = self.coordinator.balance_id_list(clients_this_round, self._network.world_size - 1)
 
         self.logger.info("TrainClient id list: {}".format(clients_this_round))
         self.logger.info(f"Balance Client ids: {rank_dict}")
@@ -311,7 +311,10 @@ class BaseServerManager(ServerManager):
             for exiting information.
         """
         client_list = range(self._handler.client_num_in_total)
-        rank_dict = self.coordinator.balance_id_list(client_list, self._network.world_size-1)
+        # old version  send rank and client_id
+        rank_dict = self.coordinator.map_id_list(client_list)
+        # new version  balance rank and client id
+        # rank_dict = self.coordinator.balance_id_list(client_list, self._network.world_size - 1)
 
         for rank, values in rank_dict.items():
             downlink_package = self._handler.downlink_package
