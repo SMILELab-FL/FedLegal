@@ -21,15 +21,15 @@ fi
 echo "config file in ${config_file}"
 
 
-bash fed_run.sh ${RUN_DIR} ${task} ditto ${config_file} 18000 0,0,1
+bash fed_run.sh ${RUN_DIR} ${task} ditto ${config_file} 18000 0 0 1
 
 # SEARCH PARAMETERS
-# python fed_sweep_once.py LCP ditto config_files/lcp/fed_silo.yaml mu_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LCP ditto config_files/lcp/fed_silo.yaml mu_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LJP ditto config_files/ljp/fed_silo.yaml mu_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LJP ditto config_files/ljp/fed_silo.yaml mu_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LER ditto config_files/ler/fed_silo.yaml mu_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LER ditto config_files/ler/fed_silo.yaml mu_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LRE ditto config_files/lre/fed_silo.yaml mu_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LRE ditto config_files/lre/fed_silo.yaml mu_fine-tuning 18000 0 0 1
 
-# python fed_sweep_once.py LCP ditto config_files/lcp/fed_silo.yaml LAM_mu_fine-tuning 18000 0,0,1
+# python fed_sweep_once.py LCP ditto config_files/lcp/fed_silo.yaml LAM_mu_fine-tuning 18000 0 0 1
