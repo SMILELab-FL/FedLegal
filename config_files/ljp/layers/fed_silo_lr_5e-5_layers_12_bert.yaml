@@ -1,0 +1,36 @@
+data_config:
+  dataset_name: legal
+
+federated_config:
+  rounds: 20
+  sample: 1.0
+  log_test_len: 10
+  partition_method: silo
+  clients_num: 24
+  pson: false # local test
+  test_rounds: false
+#  pson_round_len: 10  # local client eval per 10 round
+#  pson_log_test_len: 10  # local client test per 10 round
+
+model_config:
+  model_type: bert
+  model_output_mode: seq_regression
+  permutation_layers: true
+  client_model_layers: [0,1,2,3,4,5,6,7,8,9,10,11]
+  server_model_layers: [0,1,2,3,4,5,6,7,8,9,10,11]
+  tuning_type:
+#  tuning_type: adapter_roberta-base
+#  tuning_type: soft_prompt_roberta-base
+#  tuning_type: lora_roberta-base
+#  tuning_type: bitfit_roberta-base
+#  tuning_type: prefix_roberta-base
+
+training_config:
+  per_device_train_batch_size: 16
+#  per_device_train_batch_size: 8
+  num_train_epochs: 1
+  learning_rate: 5e-5
+  metric_name: legal
+  seed: 42
+  do_predict: true  # local test
+  # multi_label_threshold: [0.5]  # for multi-label tasks

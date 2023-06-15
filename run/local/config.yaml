@@ -1,0 +1,41 @@
+data_config:
+  dataset_name: legal
+
+federated_config:
+  rounds: 10
+  sample: 0.1
+  rank: -2  # local
+  pson: true
+  partition_method: silo
+  clients_num: 24
+  alpha: 1.0
+
+model_config:
+  # model_type: bert
+  model_type: roberta-wwm-ext
+  # model_type: gpt2-chinese-cluecorpussmall
+  # model_output_mode: seq_generation
+  # model_output_mode: seq_classification
+  model_output_mode: seq_regression
+#  model_output_mode: token_classification
+  permutation_layers: false
+  client_model_layers: [0,1,2]
+  server_model_layers: [0,1,2]
+  tuning_type:
+#  tuning_type: adapter_roberta-base
+#  tuning_type: soft_prompt_roberta-base
+#  tuning_type: lora_roberta-base
+#  tuning_type: bitfit_robert-base
+#  tuning_type: prefix_robert-base
+
+training_config:
+  per_device_train_batch_size: 16
+  num_train_epochs: 5
+  learning_rate: 5e-5
+#  learning_rate: 2e-5
+  metric_name: legal
+  seed: 42
+  do_predict: true
+  greater_is_better: False # true
+  metric_for_best_model: loss  # default to each task's according metric
+#  multi_label_threshold: [0.5]  # for multi-label tasks

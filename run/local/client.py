@@ -1,0 +1,101 @@
+"""Centralized Training for FedETuning"""
+
+from abc import ABC
+import numpy as np
+from fedlab.utils import SerializationTool
+
+from trainers.BaseClient import BaseClientTrainer, CRFClientTrainer
+
+
+class LocalClientTrainer(BaseClientTrainer, ABC):
+    def __init__(self, model, train_dataset, valid_dataset, test_dataset):
+        super().__init__(model, train_dataset, valid_dataset, test_dataset)
+        self.global_test_metric = {}  # record global
+
+    def local_train_test_on_client_globally(self):
+        if not self.federated_config.pson and len(self.loc_best_params) == 0:  # in case
+            self.logger.warning("There is no best global params for each client. "
+                                "We will take the final local model of each client "
+                                "to test for this local algorithm.")
+            for i, params in self.loc_cur_params.items():
+                self.loc_best_params[i] = params
+
+        eval_result_dict = {}
+        for idx in self.loc_best_params:
+            loc_best_params = self.loc_best_params[idx]
+            SerializationTool.deserialize_model(self._model, loc_best_params)
+            test_dataloader = self._get_dataloader(dataset=self.test_dataset, client_id=-1)  # global data
+            result = self.eval.test_and_eval(
+                model=self._model,
+                valid_dl=test_dataloader,
+                model_type=self.model_config.model_type,
+                model_output_mode=self.model_config.model_output_mode
+            )
+            test_metric, test_loss = result[self.metric_name], result["eval_loss"]
+            self.logger.critical(
+                f"{self.data_config.task_name.upper()} Test, "
+                f"Client:{idx}, Global Test loss:{test_loss:.3f}, "
+                f"Global Test {self.metric_name}:{test_metric:.3f}"
+            )
+            all_test_info = [f"Test {key}: {value:.3f}" for key, value in result.items()
+                             if key not in self.metric.metric_log_skip_name]
+            self.logger.critical(", ".join(all_test_info))
+
+            self.global_test_metric[idx] = test_metric
+            eval_result_dict[idx] = result
+
+        if len(self.global_test_metric) > 0:  # skip no-local test
+            self.logger.critical(
+                f"### Local training algorithm. Global Test ### \n"
+                f"Clients num: {len(self.global_test_metric)}, Clients list: {list(self.global_test_metric.keys())} \n"
+                f"Avg Global Test {self.metric_name}:{np.mean(list(self.global_test_metric.values())):.3f}, "
+                f"All Global Test {self.metric_name}:{list(self.global_test_metric.values())}"
+            )
+        return eval_result_dict
+
+
+class LocalClientTrainerCRF(CRFClientTrainer, ABC):
+    def __init__(self, model, train_dataset, valid_dataset, test_dataset):
+        super().__init__(model, train_dataset, valid_dataset, test_dataset)
+        self.global_test_metric = {}  # record global
+
+    def local_train_test_on_client_globally(self):
+        if not self.federated_config.pson and len(self.loc_best_params) == 0:  # in case
+            self.logger.warning("There is no best global params for each client. "
+                                "We will take the final local model of each client "
+                                "to test for this local algorithm.")
+            for i, params in self.loc_cur_params.items():
+                self.loc_best_params[i] = params
+
+        eval_result_dict = {}
+        for idx in self.loc_best_params:
+            loc_best_params = self.loc_best_params[idx]
+            SerializationTool.deserialize_model(self._model, loc_best_params)
+            test_dataloader = self._get_dataloader(dataset=self.test_dataset, client_id=-1)  # global data
+            result = self.eval.test_and_eval(
+                model=self._model,
+                valid_dl=test_dataloader,
+                model_type=self.model_config.model_type,
+                model_output_mode=self.model_config.model_output_mode
+            )
+            test_metric, test_loss = result[self.metric_name], result["eval_loss"]
+            self.logger.critical(
+                f"{self.data_config.task_name.upper()} Test, "
+                f"Client:{idx}, Global Test loss:{test_loss:.3f}, "
+                f"Global Test {self.metric_name}:{test_metric:.3f}"
+            )
+            all_test_info = [f"Test {key}: {value:.3f}" for key, value in result.items()
+                             if key not in self.metric.metric_log_skip_name]
+            self.logger.critical(", ".join(all_test_info))
+
+            self.global_test_metric[idx] = test_metric
+            eval_result_dict[idx] = result
+
+        if len(self.global_test_metric) > 0:  # skip no-local test
+            self.logger.critical(
+                f"### Local training algorithm. Global Test ### \n"
+                f"Clients num: {len(self.global_test_metric)}, Clients list: {list(self.global_test_metric.keys())} \n"
+                f"Avg Global Test {self.metric_name}:{np.mean(list(self.global_test_metric.values())):.3f}, "
+                f"All Global Test {self.metric_name}:{list(self.global_test_metric.values())}"
+            )
+        return eval_result_dict
