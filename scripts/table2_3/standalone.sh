@@ -1,5 +1,5 @@
 RUN_DIR=$1
-task=${2^^}
+task=$(echo "$2" | tr '[:lower:]' '[:upper:]')
 
 echo "RUN_DIR: ${RUN_DIR}"
 echo "task: ${task}"
@@ -12,11 +12,11 @@ fi
 
 
 if [[ $task == "LRE" ]]; then
-  config_file="config_files/${task,,}/eval_f1_macro/local.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/eval_f1_macro/local.yaml"
 elif [[ $task == "LAM" ]]; then
-  config_file="config_files/${task,,}/eval_f1_micro/local.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/eval_f1_micro/local.yaml"
 else
-  config_file="config_files/${task,,}/local.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/local.yaml"
 fi
 echo "config file in ${config_file}"
 

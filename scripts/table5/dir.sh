@@ -1,5 +1,5 @@
 RUN_DIR=$1
-task=${2^^}
+task=$(echo "$2" | tr '[:lower:]' '[:upper:]')
 
 echo "RUN_DIR: ${RUN_DIR}"
 echo "task: ${task}"
@@ -15,11 +15,11 @@ for alpha in ${ALPHA_LIST[@]}
 do
   echo "run dir. 10 clients with ${alpha}"
   if [[ $task == "LRE" ]]; then
-  config_file="config_files/${task,,}/eval_f1_macro/dir_10_${alpha}.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/eval_f1_macro/dir_10_${alpha}.yaml"
   elif [[ $task == "LAM" ]]; then
-    config_file="config_files/${task,,}/eval_f1_micro/dir_10_${alpha}.yaml"
+    config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/eval_f1_micro/dir_10_${alpha}.yaml"
   else
-    config_file="config_files/${task,,}/dir_10_${alpha}.yaml"
+    config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/dir_10_${alpha}.yaml"
   fi
   echo "config file in ${config_file}"
   bash fed_run.sh ${RUN_DIR} ${task} fedavg ${config_file} 18000 0 0 1

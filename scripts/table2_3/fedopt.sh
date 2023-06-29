@@ -6,7 +6,7 @@ RUN_DIR=$1
 # eta: 1.0
 
 RUN_DIR=$1
-task=${2^^}
+task=$(echo "$2" | tr '[:lower:]' '[:upper:]')
 
 echo "RUN_DIR: ${RUN_DIR}"
 echo "task: ${task}"
@@ -19,11 +19,11 @@ fi
 
 
 if [[ $task == "LRE" ]]; then
-  config_file="config_files/${task,,}/eval_f1_macro/fed_silo_msgd.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/eval_f1_macro/fed_silo_msgd.yaml"
 elif [[ $task == "LAM" ]]; then
-  config_file="config_files/${task,,}/eval_f1_micro/fed_silo_msgd.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/eval_f1_micro/fed_silo_msgd.yaml"
 else
-  config_file="config_files/${task,,}/fed_silo.yaml"
+  config_file="config_files/$(echo "$task" | tr '[:upper:]' '[:lower:]')/fed_silo.yaml"
 fi
 echo "config file in ${config_file}"
 

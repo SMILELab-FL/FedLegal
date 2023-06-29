@@ -43,7 +43,7 @@ def parser_args():
                         help="construct local test")
     parser.add_argument("--seed", default=42, type=int,
                         help="seed")
-    parser.add_argument("--cluster", type=bool, action='store_true', default=False,
+    parser.add_argument("--cluster", action='store_true',
                         help="Use embedding clustering to partition")
     parser.add_argument("--train_neg_num", default=0, type=int,
                         help="Whether to use negative sampling for LRE")
@@ -496,7 +496,7 @@ class LreProcessor(LegalProcess):
         print(self.silo2count)
         print(self.all_examples[:5])
 
-    def _negative_sampling(self, train_neg_num=5):
+    def _negative_sampling(self, train_neg_num=-1):
         # client train/val/test negative sampling
         for d_type, example_dict in self.clients_example_dict.items():
             logger.info(f"{d_type} dataset negative sampling")
@@ -510,7 +510,7 @@ class LreProcessor(LegalProcess):
         self.global_test_examples.extend(negative_sample_for_lists(self.global_test_examples, 'test'))
 
 
-def negative_sample_for_lists(clients_examples, d_type, train_neg_num=5):
+def negative_sample_for_lists(clients_examples, d_type, train_neg_num=-1):
     neg_clients_examples = []
 
     neg_index = train_neg_num if d_type == 'train' else -1
