@@ -1,6 +1,6 @@
 RUN_DIR=$1
-task=${2^^}
-cluster=$3  # False
+task=$(echo "$2" | tr '[:lower:]' '[:upper:]')
+cluster=$3  # empty for False
 
 echo "RUN_DIR: ${RUN_DIR}"
 echo "task: ${task}"
@@ -14,7 +14,7 @@ fi
 
 cd tools/legal_scripts
 if [[ $cluster ]]; then
-  python legal.py --run_dir ${RUN_DIR} --task ${task} --cluster ${cluster}
+  python legal.py --run_dir ${RUN_DIR} --task ${task} --cluster
 else
   python legal.py --run_dir ${RUN_DIR} --task ${task}
 fi

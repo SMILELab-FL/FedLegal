@@ -31,7 +31,7 @@ max_seq=512
 # dataset_name = "legal"
 # metric_name = "legal"
 model_name='roberta-wwm-ext'
-data_file="legal/silo_sampled_${sampled_ratio}/${task_name,,}"
+data_file="legal/silo_sampled_${sampled_ratio}/$(echo "$task_name" | tr '[:upper:]' '[:lower:]')"
 if [ ${task_name} == "LCP" ];
 then
   model_output_mode="seq_classification"
