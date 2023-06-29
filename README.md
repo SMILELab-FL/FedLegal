@@ -70,6 +70,9 @@ mkdir nlp
 cd ..  
 cd code  
 ```  
+
+### 数据下载
+集中式数据、天然联邦划分数据、狄利克雷采样联邦划分数据、以及用户本地数据按比例0.1,0.5抽取的数据已经打包存储在[该文件中](https://drive.google.com/file/d/1i1wmsJIL-67-Qq_wrr0M00oMCcJNaxbO/view?usp=sharing)。
  
 ### 环境安装  
 建议运行环境的`python`版本为`3.7+`，我们建议使用`pytorch`版本为`1.10+` 
