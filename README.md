@@ -12,7 +12,7 @@
     <p> 致力于联邦智能司法发展 </p>  
 </h3>  
 
-> Paper: FedLegal: The First Real-World Federated Learning Benchmark for Legal NLP  
+> [Paper: FedLegal: The First Real-World Federated Learning Benchmark for Legal NLP](https://aclanthology.org/2023.acl-long.193/)  
 > Accepted by ACL 2023
 
 1️⃣ 本项目来自 [SMILELab-FL](https://github.com/SMILELab-FL/FedLab-NLP) , 我们主要致力于联邦自然语言处理在智能司法上的发展；  
