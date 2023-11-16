@@ -177,7 +177,7 @@ class LegalMetric(BaseMetric):
             "lcp": "f1_micro",
             "ljp": "score",
             "ler": "f1_micro",
-            "lre": "f1_micro_pos",
+            "lre": "f1_macro",  # for negative_sampling, please add suffix `_pos` such as `f1_macro_pos`
             "lam": "f1_micro",
             "ldg": "bleu2"
         }
@@ -206,7 +206,7 @@ class LegalMetric(BaseMetric):
             return self.acc_and_f1(preds, labels, **kwargs)
         elif task_name == "lre":
             all_result = self.acc_and_f1(preds, labels)  # for training and eval metric
-            if '无' in label_list:  # negative sampling
+            if label_list and '无' in label_list:  # negative sampling
                 mask = labels != 0
                 preds = preds[mask]
                 labels = labels[mask]
